@@ -29,7 +29,7 @@ public class Conection {
     public Conection() {
     }
     
-    public void conectar() {
+    public void conecting() {
         
         try {   
             Class.forName("org.postgresql.Driver");
@@ -49,5 +49,13 @@ public class Conection {
     public Connection getConector() {
         return conector;
     }
+    
+    public void close(){
+        try {
+            this.conector.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
     
 }

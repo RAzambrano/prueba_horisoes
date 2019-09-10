@@ -1,12 +1,82 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+   <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Peliculas y Series</title>
+            </f:facet>
+   </h:head>
     <h:body>
-        Hello from Facelets
+        
+        <h:form id="form1">
+             <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    <h:outputLabel value="Peliculas y Series" />
+                    <div align="right">
+                        
+                        <p:commandButton value="Registrar" type="button"  onclick="PF('dlg1').show(); PF('dlg2').hide();" />
+                        <th/>
+                        <p:commandButton value="Iniciar" type="button" onclick="PF('dlg2').show(); PF('dlg1').hide();" />
+                        
+                    </div>
+                    
+                    
+                </p:layoutUnit>
+             
+            <p:layoutUnit position="center">
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                   
+                    <p:dialog id="dialog1" header="Registrar" widgetVar="dlg1" minHeight="40">
+                       
+                        <h:panelGrid  cellpadding="5"> 
+                            <p:inputText placeholder="Nombre"  value="#{userBean.temp.aux.nameUser}" />
+                                        
+                            <p:inputText placeholder="Identificacion" value="#{userBean.temp.aux.identificationUser}"/>
+                                    
+                            <p:inputText placeholder="Contraseña" value="#{userBean.temp.password}"/>
+                                    
+                            <p:inputText placeholder="Confirmar Contraseña" value="#{userBean.temp.validatePassword}"/>
+                                    
+                            <h:panelGrid  cellpadding="5" columns="2"> 
+                                <p:commandButton action="#{userBean.addUser()}" value="Registrar" update="growl"/>
+
+                                <p:commandButton  onclick="PF('dlg1').hide();" value="Cancelar"/>
+                           </h:panelGrid>
+                                    
+                                    
+                        </h:panelGrid>
+                        
+                        
+                             
+                    </p:dialog>
+                    
+                    <p:dialog header="Iniciar" widgetVar="dlg2" minHeight="40">
+                       
+                        <h:panelGrid  cellpadding="5">
+                            <p:inputText placeholder="Identificacion" value="#{sesionBean.temp.identificacion}"/>
+                            
+                            <p:inputText placeholder="Contraseña" type="password" value="#{sesionBean.temp.password}"/>
+                       
+                            <h:panelGrid  cellpadding="5" columns="2">
+                                <p:commandButton action="#{sesionBean.validateUser()}" value="Iniciar" update="growl"/>
+                                
+                                <p:commandButton  onclick="PF('dlg2').hide();" value="Cancelar" resetValues="true" />
+
+                            </h:panelGrid>
+                            
+                        </h:panelGrid>                         
+                      
+                    </p:dialog> 
+
+                    
+                </p:layoutUnit>
+
+             </p:layout>
+        </h:form>
     </h:body>
 </html>
-

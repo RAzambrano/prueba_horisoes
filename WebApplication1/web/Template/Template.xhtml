@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+               
+    <p:layout fullPage="true">
+        
+     <p:layoutUnit position="north" size="50"  resizable="true" closable="true" collapsible="true">
+         <h:form>
+             
+                 
+                
+             
+             <div align="center">
+                 <h:outputLabel  style="margin-left: 100px"  value="Envientrega" />&lrm;
+                 <h:outputText style="margin-left: 200px" value="#{sesionBean.optenerUsuario()}" />&lrm;
+                  <p:commandButton style="margin-left: 200px" value="Salir" action="#{sesionBean.cerrarSesion()}"  />
+             </div>
+                 <div align="right" >
+                       
+              </div>        
+                 
+           
+             
+              
+                    
+         </h:form>
+      </p:layoutUnit>
+        
+        <div id="menu"  >
+                    <ui:insert name="menu"/>
+                    <p:layoutUnit position="west" size="245"  collapsible="false">
+                        <h:form>
+                            <p:menu model="#{sesionBean.temp.menu}"/>
+                            
+                        </h:form>
+                    </p:layoutUnit>
+         </div>
+        
+        <div id="centroPrincipal"  >
+                    <p:layoutUnit position="center">
+                        <ui:insert name="centroPrincipal">Content</ui:insert>
+                    </p:layoutUnit>
+        </div>
+        
+        <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    <p style="text-align: center; font-size: 13px" >Ricardo Zambrano </p> 
+                    <p style="text-align: center; font-size: 13px">ricardozambranodaza@gmail.com </p> 
+                        
+                    </p:layoutUnit>
+    </p:layout>
+</html>
