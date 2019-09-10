@@ -10,6 +10,9 @@ import Sesion.Impl.Impl.SesionImpl;
 import Sesion.Impl.SesionImplInterface;
 import Sesion.Temp.SesionTemp;
 import User.Data.User;
+import User.Impl.Impl.UserImpl;
+import User.Impl.UserImplInterface;
+import User.Temp.UserTemp;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -24,10 +27,14 @@ public class SesionBean {
     
     private SesionTemp temp;
     private SesionImplInterface impl;
-
+    private UserImplInterface implUser;
+    private UserTemp tempUser;
+    
     public SesionBean() {
         temp = new SesionTemp();
         impl = new SesionImpl();
+        implUser = new UserImpl();
+        tempUser = new UserTemp();
     }
     
     
@@ -50,10 +57,26 @@ public class SesionBean {
         }
         
     }
+    
+     public String addUser() {
+        if(implUser.validatePassword(tempUser)){
+           if (implUser.addUser(tempUser)){
+               temp.setIdentificacion(tempUser.getAux().getIdentificationUser().toString());
+               temp.setPassword(tempUser.getAux().getPasswordUser());
+               
+           }
+        }
+         return validateUser();
+    }
 
     public SesionTemp getTemp() {
         return temp;
     }
+
+    public UserTemp getTempUser() {
+        return tempUser;
+    }
+    
     
     
     public String optenerUsuario(){

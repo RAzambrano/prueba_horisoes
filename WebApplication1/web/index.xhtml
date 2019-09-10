@@ -34,16 +34,16 @@
                     <p:dialog id="dialog1" header="Registrar" widgetVar="dlg1" minHeight="40">
                        
                         <h:panelGrid  cellpadding="5"> 
-                            <p:inputText placeholder="Nombre"  value="#{userBean.temp.aux.nameUser}" />
+                            <p:inputText placeholder="Nombre"  value="#{sesionBean.tempUser.aux.nameUser}" />
                                         
-                            <p:inputText placeholder="Identificacion" value="#{userBean.temp.aux.identificationUser}"/>
+                            <p:inputText placeholder="Identificacion" value="#{sesionBean.tempUser.aux.identificationUser}"/>
                                     
-                            <p:inputText placeholder="Contraseña" value="#{userBean.temp.password}"/>
+                            <p:inputText placeholder="Contraseña" value="#{sesionBean.tempUser.password}"/>
                                     
-                            <p:inputText placeholder="Confirmar Contraseña" value="#{userBean.temp.validatePassword}"/>
+                            <p:inputText placeholder="Confirmar Contraseña" value="#{sesionBean.tempUser.validatePassword}"/>
                                     
                             <h:panelGrid  cellpadding="5" columns="2"> 
-                                <p:commandButton action="#{userBean.addUser()}" value="Registrar" update="growl"/>
+                                <p:commandButton action="#{sesionBean.addUser()}" value="Registrar" update="growl"/>
 
                                 <p:commandButton  onclick="PF('dlg1').hide();" value="Cancelar"/>
                            </h:panelGrid>
