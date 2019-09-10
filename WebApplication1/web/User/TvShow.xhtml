@@ -1,5 +1,10 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -14,7 +19,7 @@
          <ui:composition template="../Template/Template.xhtml"  >
             <ui:define name="centroPrincipal" >
                  <f:event type="preRenderView" listener="#{sesionBean.validateSesion('User')}" />
-                <ui:include src="../Component/Movie/Movie.xhtml"/>
+                <ui:include src="../Component/TvShow/TvShow.xhtml"/>
             </ui:define>
         
     </ui:composition>

@@ -33,9 +33,7 @@ public class SesionDaoImpl implements SesionDaoInterface {
         conection.conecting();
         Connection conecting = conection.getConector(); 
         
-        String query= "SELECT me.comando_menu, me.texto_menu, me.icono_menu from menu as me "
-                        + "inner join rol_menu as rol on (rol.id_menu = me.id_menu)\n" 
-                        + "where id_rol=?";
+        String query= "SELECT me.comand_menu, me.text_menu from horisoes_peliculas.menu as me inner join horisoes_peliculas.rol_menu as rol on (rol.id_menu = me.id_menu) where id_rol=?";
         
         try {
             prepareSentence = conecting.prepareStatement(query);
@@ -43,9 +41,9 @@ public class SesionDaoImpl implements SesionDaoInterface {
             ResultSet result = prepareSentence.executeQuery();
             while(result.next()){
                 Menu aux = new Menu();
-                aux.setComand(result.getString("comando_menu"));
-                aux.setValue(result.getString("texto_menu"));
-                aux.setIcon(result.getString("icono_menu"));
+                aux.setComand(result.getString("comand_menu"));
+                aux.setValue(result.getString("text_menu"));
+                //aux.setIcon(result.getString("icono_menu"));
                 
                 menu.add(aux);
             }
