@@ -11,7 +11,7 @@ import Sesion.Impl.SesionImplInterface;
 import Sesion.Temp.SesionTemp;
 import User.Data.User;
 import User.Impl.Impl.UserImpl;
-import User.Impl.UserImplInterface;
+import User.ImplInterface.UserImplInterface;
 import User.Temp.UserTemp;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;

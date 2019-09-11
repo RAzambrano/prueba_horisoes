@@ -13,7 +13,148 @@
         
     </h:head>
     <h:body>
-        <h:outputLabel value="Usuarios" />
+        <h:form id="form1">
+            <p:dataTable value="#{userBean.temp.users}" var="user" id="tabUser" 
+                         rowKey="#{user.identificationUser}" selection="#{userBean.temp.select}" selectionMode="single">
+                 <f:facet name="header">
+                     Tabla de Usuarios
+                     <div>
+                         <p:commandButton value="Registrar Usuario" onclick="PF('dlgAgregar').show();"/>
+                     </div>
+                     
+                    </f:facet>
+                
+                <p:ajax event="rowSelect" update=":form1:dlg2" oncomplete="PF('dlgMostrar').show()" />
+                <p:ajax event="contextMenu" update=":form1:dlg3 :form1:dlg4 :form1:dlg5" />
+               
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{user.nameUser}"/>
+                    </p:column>
+               
+                    <p:column headerText="Identificación ">
+                      <h:outputText value="#{user.identificationUser}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Tipo Usuario">
+                        <h:outputText value="#{user.rol.rol}"/>
+                    </p:column>
+                    
+                    
+            </p:dataTable>
+            
+            <p:contextMenu for="tabUser">
+                <p:menuitem value="Actualizar" onclick="PF('dlgActualizar').show()" action="#{userBean.copyUser()}"/>
+                <p:menuitem value="Eliminar" onclick="PF('dlgEliminar').show()"  />
+                <p:menuitem value="Cambiar Contraseña" onclick="PF('dlgCambiarContrasena').show()" action="#{userBean.copyUser()}" />
+            </p:contextMenu>
+            
+             <p:layoutUnit id="layRegistrar" position="center">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                
+                
+                
+                
+                <p:dialog id="dlg1" widgetVar="dlgAgregar" header="Agregar Usuario" >
+                   <h:panelGrid id="panAgregar"  cellpadding="6"   >
+                                
+                       <p:inputText placeholder="Nombre"  value="#{userBean.temp.aux.nameUser}"  />
+                                
+                               
+                       <p:inputText placeholder="Identificación" value="#{userBean.temp.aux.identificationUser}"  />
+                         
+                       <p:inputText placeholder="Contresaeña" value="#{userBean.temp.password}" />
+                                    
+                       <p:inputText placeholder="Confirmar contraseña" value="#{userBean.temp.validatePassword}" />
+                                
+                   </h:panelGrid>
+                            
+                   <h:panelGrid cellpadding="5" columns="2">
+                       <p:commandButton value="Agregar" resetValues="true"  action="#{userBean.addUser()}" onclick="PF('dllgAgregar').hide()" update=":form1" />
+                                    
+                       <p:commandButton value="Cancelar"  onclick="PF('dllgAgregar').hide()" />
+                                    
+                   </h:panelGrid>
+                            
+                </p:dialog>
+                
+                
+                <p:dialog id="dlg2" widgetVar="dlgMostrar" header="Información Usuario" >
+                    <h:outputText value="Usuario: #{userBean.temp.select.nameUser}" />
+                            <h:panelGrid cellpadding="6" columnClasses="label,value" columns="2">
+                            
+                             
+                              <h:outputText value="Identificación" />
+                              <h:outputText value="#{userBean.temp.select.identificationUser}"/>
+                              <h:outputText value="Rol" />
+                              <h:outputText value="#{userBean.temp.select.rol.rol}"/>
+                              
+                            
+                            </h:panelGrid>
+                        </p:dialog>
+                
+                <p:dialog id="dlg3" widgetVar="dlgActualizar" header="Actualizar Usuario" >
+                    <h:panelGrid columns="2" id="panActualizar" cellpadding="6" rendered="#{not empty userBean.temp.select}" columnClasses="label,value" >
+                                <h:outputText value="Nombre:" />
+                                <p:inputText  value="#{userBean.temp.select.nameUser}"  />
+                                
+                                <h:outputText value="Identificación:"/>
+                                <p:inputText placeholder="Identificación" value="#{userBean.temp.select.identificationUser}"  />
+                                
+                                
+                            </h:panelGrid>
+                            
+                            <h:panelGrid cellpadding="5" columns="2">
+                                <p:commandButton value="Modificar" action="#{userBean.updateUser()}" update=":form1" />
+                                    
+                                <p:commandButton value="Cancelar"  onclick="PF('dllgActualizar').hide()" />
+                                    
+                                </h:panelGrid>
+                            
+                        </p:dialog>
+                
+                <p:dialog id="dlg4" widgetVar="dlgEliminar" header="Eliminar Usuario" >
+                    <h:outputText value="¿Esta seguro de eliminar al usuario #{userBean.temp.select.nameUser}?" />
+                        <h:panelGrid id="panCambiarContrasena"  cellpadding="6" columns="2" columnClasses="label,value">
+                            
+                             <h:outputText value="Identificación" />
+                              <h:outputText value="#{userBean.temp.select.identificationUser}"/>
+                              <h:outputText value="Rol" />
+                              <h:outputText value="#{userBean.temp.select.rol.rol}"/>
+                        
+                    </h:panelGrid>
+                    
+                     <h:panelGrid cellpadding="5" columns="2">
+                         <p:commandButton value="Eliminar" resetValues="true" action="#{userBean.deleteUser()}" onclick="PF('dlgEliminar').hide()" update=":form1 " />
+                                 
+                                 <p:commandButton value="Cancelar" onclick="PF('dlgEliminar').hide()"/>
+                                 
+                      </h:panelGrid>
+                </p:dialog>
+                
+                <p:dialog id="dlg5" widgetVar="dlgCambiarContrasena" header="Cambiar contraseña" >
+                         <h:outputText value="Cambiar contraseña Usuario #{userBean.temp.select.nameUser}" />
+                    <h:panelGrid id="panEliminar"  cellpadding="6" columns="2" rendered="#{not empty userBean.temp.select}" columnClasses="label,value">
+                           
+                              <h:outputText value="Contraseña actual" />
+                              <p:inputText type="password" value="#{userBean.temp.oldPassword}" />
+                              <h:outputText value="Contraseña nueva"/>
+                              <p:inputText type="password" value="#{userBean.temp.password}" />
+                              <h:outputText value="Repita su nueva contraseña" />
+                              <p:inputText type="password" value="#{userBean.temp.validatePassword}" />
+                             
+                        
+                    </h:panelGrid>
+                     
+                     <h:panelGrid cellpadding="5" columns="2">
+                         <p:commandButton value="Cambiar" action="#{userBean.changePassword()}" onclick="PF('dlgCambiarContrasena').hide()" resetValues="true" update=":form1 growl dlg5 " />
+                                 
+                                 <p:commandButton value="Cancelar" onclick="PF('dlgCambiarContrasena').hide()"/>
+                                 
+                      </h:panelGrid>
+                </p:dialog>
+            </p:layoutUnit>
+            
+        </h:form>
     </h:body>
     </f:view>
     </html>

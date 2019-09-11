@@ -8,7 +8,7 @@ package User.Impl.Impl;
 import User.Dao.Impl.UserDao;
 import User.Dao.UserDaoInterface;
 import User.Data.User;
-import User.Impl.UserImplInterface;
+import User.ImplInterface.UserImplInterface;
 import User.Temp.UserTemp;
 
 /**
@@ -75,7 +75,14 @@ public class UserImpl implements UserImplInterface{
         }else{
             b = false;
         }
+       
         return b;
+    }
+    
+    public void cleanPassword(UserTemp temp){
+            temp.setOldPassword("");
+            temp.setPassword("");
+            temp.setValidatePassword("");
     }
     
     

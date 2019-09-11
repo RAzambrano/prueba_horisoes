@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package User.Impl;
+package User.ImplInterface;
 
 import User.Data.User;
 import User.Temp.UserTemp;
@@ -22,4 +22,5 @@ public interface UserImplInterface {
     public void copyUser(UserTemp temp);
     public boolean deletaUser(UserTemp temp);
     public boolean changePassgord(UserTemp temp);
+    public void cleanPassword(UserTemp temp);
 }

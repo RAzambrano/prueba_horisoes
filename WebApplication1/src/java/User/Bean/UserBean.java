@@ -11,7 +11,7 @@ import User.Impl.Impl.UserImpl;
 import User.Temp.UserTemp;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import User.Impl.UserImplInterface;
+import User.ImplInterface.UserImplInterface;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +35,9 @@ public class UserBean {
     public void addUser() {
         if(impl.validatePassword(temp)){
            if (impl.addUser(temp)){
-            
+             temp.setAux(new User() );
+             impl.cleanPassword(temp);
+             listUsers();
            }else{
            
            }
@@ -54,6 +56,7 @@ public class UserBean {
     
     public void deleteUser(){
         impl.deletaUser(temp);
+         listUsers();
     }
     
     public void listUsers(){
@@ -63,6 +66,7 @@ public class UserBean {
 
     public void changePassword(){
         impl.changePassgord(temp);
+        impl.cleanPassword(temp);
     }
     
     public UserTemp getTemp() {

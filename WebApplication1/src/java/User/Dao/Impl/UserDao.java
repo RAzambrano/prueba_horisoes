@@ -182,11 +182,11 @@ public class UserDao implements UserDaoInterface {
         Connection conecting = conection.getConector();
        
          try {
-            String query="DELETE FROM user\n" +
+            String query="DELETE FROM horisoes_peliculas.user \n" +
                          "WHERE identification_user = ?;";
             prepareSentence = conecting.prepareStatement(query);
             prepareSentence.setDouble(1, identification);
-            prepareSentence.executeQuery();
+            prepareSentence.execute();
             b=true;
            conection.close();
          } catch (SQLException ex) {
@@ -208,7 +208,7 @@ public class UserDao implements UserDaoInterface {
         
        
          try {
-              String query = "update user "
+              String query = "update horisoes_peliculas.user "
                 + "SET password_user = ? "
                 + "where identification_user = ?";
              prepareSentence=conecting.prepareStatement(query);
