@@ -5,10 +5,17 @@
  */
 package Movie.Impl.Interface;
 
+import MovieTemp.MovieTemp;
+
 /**
  *
  * @author ricar
  */
 public interface MovieImplInterface {
-    
+    public void listMovie(MovieTemp temp);
+    public boolean validateMovie(MovieTemp temp);
+    public boolean addMovie(MovieTemp temp);
+    public boolean updateMovie(MovieTemp temp);
+    public boolean deletMovie(MovieTemp temp);
+    public void copyMovie(MovieTemp temp);
 }

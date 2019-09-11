@@ -15,6 +15,6 @@ import java.util.ArrayList;
 public interface MovieDaoInterface {
     public boolean addMovie(Movie movie);
     public ArrayList<Movie> listMovie();
-    public boolean updateMovie();
-    public boolean delteMoie();
+    public boolean updateMovie(Movie movie, Integer idMovie);
+    public boolean delteMovie(Integer idMovie);
 }
