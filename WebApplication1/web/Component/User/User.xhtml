@@ -62,16 +62,16 @@
                                
                        <p:inputText placeholder="Identificación" value="#{userBean.temp.aux.identificationUser}"  />
                          
-                       <p:inputText placeholder="Contresaeña" value="#{userBean.temp.password}" />
+                       <p:inputText type="password" placeholder="Contresaeña" value="#{userBean.temp.password}" />
                                     
-                       <p:inputText placeholder="Confirmar contraseña" value="#{userBean.temp.validatePassword}" />
+                       <p:inputText type="password" placeholder="Confirmar contraseña" value="#{userBean.temp.validatePassword}" />
                                 
                    </h:panelGrid>
                             
                    <h:panelGrid cellpadding="5" columns="2">
                        <p:commandButton value="Agregar" resetValues="true"  action="#{userBean.addUser()}" onclick="PF('dllgAgregar').hide()" update=":form1" />
                                     
-                       <p:commandButton value="Cancelar"  onclick="PF('dllgAgregar').hide()" />
+                       <p:commandButton value="Cancelar" resetValues="true" onclick="PF('dllgAgregar').hide()" />
                                     
                    </h:panelGrid>
                             

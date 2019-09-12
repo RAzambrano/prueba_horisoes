@@ -19,4 +19,11 @@ public interface MovieImplInterface {
     public boolean deletMovie(MovieTemp temp);
     public void copyMovie(MovieTemp temp);
     public String saveTempImage(String name, byte[] array);
+    public void upView(MovieTemp temp);
+    public void updateRating(MovieTemp temp);
+    public void moreView(MovieTemp temp);
+    public void moreRaiting(MovieTemp temp);
+    public boolean multipleDelete(MovieTemp temp);
+    public void loadMovie(MovieTemp temp);
+    public void loadSerie(MovieTemp temp);
 }

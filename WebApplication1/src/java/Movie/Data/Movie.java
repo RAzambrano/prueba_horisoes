@@ -15,10 +15,24 @@ public class Movie {
    private String descriptionMovie;
    private String managerMovie;
    private String starringMovie;
+   //Almacena la imagen en bytes
    private byte[] image;
+   //numero de vistas
+   private Integer view;
+   //Calificacion
+   private Integer rating;
+   private String type;
 
     public Integer getIdMovie() {
         return idMovie;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setIdMovie(Integer idMovie) {
@@ -67,7 +81,24 @@ public class Movie {
     public void setImage(byte[] image) {
         this.image = image;
     }
+
+    public Integer getView() {
+        return view;
+    }
+
+    public void setView(Integer view) {
+        this.view = view;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
    
+    
    
    
 }

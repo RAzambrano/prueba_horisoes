@@ -24,13 +24,46 @@ public class MovieTemp {
     private UploadedFile file;
     StreamedContent imagen ;
     private String pahtImagen;
+    private Integer raiting;
+    private Boolean configSelection;
+    private ArrayList<Movie> movieSelect;
 
     public MovieTemp() {
         listMovie= new ArrayList<Movie>();
         aux = new Movie();
         imagen = null;
+        configSelection=true;
+        movieSelect = new ArrayList<Movie>();
     }
 
+    public ArrayList<Movie> getMovieSelect() {
+        return movieSelect;
+    }
+
+    public void setMovieSelect(ArrayList<Movie> movieSelect) {
+        this.movieSelect = movieSelect;
+    }
+    
+    public Integer getRaiting() {
+        return raiting;
+    }
+
+    public void setRaiting(Integer raiting) {
+        this.raiting = raiting;
+    }
+
+    
+
+    public Boolean getConfigSelection() {
+        return configSelection;
+    }
+
+    public void setConfigSelection(Boolean configSelection) {
+        this.configSelection = configSelection;
+    }
+
+    
+    
     public ArrayList<Movie> getListMovie() {
         return listMovie;
     }

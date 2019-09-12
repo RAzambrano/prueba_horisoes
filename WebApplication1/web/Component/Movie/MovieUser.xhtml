@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+     
+    <f:view contentType="text/html">
+     <h:head>
+        <title>Facelet Title</title>
+        
+    </h:head>
+    <h:body>
+        <h:form id="form1">
+         <!-- Tabla que muestra las peliculas -->
+        <p:dataTable value="#{movieBean.temp.listMovie}"  var="movie" id="tabMovie"  selectionMode="single"
+                     rowKey="#{movie.idMovie}" selection="#{movieBean.temp.select}" rendered="#{movieBean.temp.configSelection}" >
+                    <f:facet name="header">
+                     
+                         
+                     
+                     Tabla de Peliculas
+                     <div align="left" >
+                         
+                              
+                         <p:commandButton    value="Lo mas visto" update="tabMovie" action="#{movieBean.moreView()}" />
+                         <p:commandButton    value="Ranking" update="tabMovie" action="#{movieBean.moreRiting()}" />
+                         <p:commandButton    value="Peliculas" update="tabMovie" action="#{movieBean.loadMovie()}" />
+                         <p:commandButton    value="Series" update="tabMovie" action="#{movieBean.loadSerie()}" />
+                         </div>
+                     
+                     
+                     
+                    </f:facet>
+                     <p:ajax event="rowSelect" update=":form1:dlg2 :form1:tabMovie" listener="#{movieBean.loadImage(1)}"   oncomplete="PF('dlgMostrar').show()"  />
+                    
+                    
+                   
+                     
+                    <p:column headerText="Titulo">
+                        <h:outputText value="#{movie.nameMovie}"/>
+                    </p:column>
+                     <p:column headerText="Descripción">
+                        <h:outputText value="#{movie.descriptionMovie}"/>
+                    </p:column>
+                     
+                     <p:column headerText="Numero de vistas">
+                         <h:outputText value="#{movie.view}"/>
+                     </p:column>
+                      <p:column headerText="Calificación">
+                          <p:rating value="#{movie.rating}" readonly="true"/>
+                     </p:column>
+                    
+        </p:dataTable>
+           <!-- Tabla que muestra las peliculas --> 
+           
+       
+            <!-- opciones de la tabla -->
+           
+            <!-- opciones de la tabla -->
+             <p:layoutUnit id="layRegistrar" position="center">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                <!-- Ventana emergente para agregar una nueva pelicula -->
+               
+              <!-- Ventana emergente para agregar una nueva pelicula -->  
+                
+              
+              <!-- Ventana emergente para  ver una pelicula -->
+                <p:dialog id="dlg2" widgetVar="dlgMostrar" header="Información de la Pelicula" >
+                    <h:outputText value="Titulo #{movieBean.temp.select.nameMovie}" />
+                            <h:panelGrid cellpadding="6" columnClasses="label,value" columns="2">
+                              <h:outputText value="Director" />
+                              <h:outputText value="#{movieBean.temp.select.managerMovie}"/>
+                              <h:outputText value="Reparto" />
+                              <h:outputText value="#{movieBean.temp.select.starringMovie}"/>
+                              <h:outputText value="Descipción"/>
+                              <h:outputText value="#{movieBean.temp.select.descriptionMovie}"/>
+                              <h:outputText value="Calificar Pelicula"/>
+                              <p:rating value="#{movieBean.temp.raiting}">
+                                  <p:ajax event="rate" listener="#{movieBean.rating}" update=":form1:tabMovie" oncomplete="PF('dlgMostrar').hide()" resetValues="true"/>
+                              </p:rating>
+                              <p:graphicImage id="img1"  value="#{movieBean.temp.pahtImagen}" width="150" height="120"/>
+                             
+                            </h:panelGrid>
+                </p:dialog>
+                <!-- Ventana emergente para  ver una pelicula -->
+                
+                <!-- Ventana emergente para editar una pelicula -->
+               
+                <!-- Ventana emergente para elminar una pelicula -->
+                
+            </p:layoutUnit>
+        </h:form>
+    </h:body>
+    </f:view>
+    </html>

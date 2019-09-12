@@ -14,7 +14,7 @@
          <ui:composition template="../Template/Template.xhtml"  >
             <ui:define name="centroPrincipal" >
                  <f:event type="preRenderView" listener="#{sesionBean.validateSesion('User')}" />
-                <ui:include src="../Component/Movie/Movie.xhtml"/>
+                <ui:include src="../Component/Movie/MovieUser.xhtml"/>
             </ui:define>
         
     </ui:composition>

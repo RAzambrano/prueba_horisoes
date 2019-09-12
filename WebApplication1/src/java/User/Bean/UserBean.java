@@ -12,7 +12,9 @@ import User.Temp.UserTemp;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import User.ImplInterface.UserImplInterface;
-import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import static org.primefaces.behavior.confirm.ConfirmBehavior.PropertyKeys.message;
 
 /**
  *
@@ -33,16 +35,25 @@ public class UserBean {
     
     
     public void addUser() {
+        String mensaje="";
         if(impl.validatePassword(temp)){
            if (impl.addUser(temp)){
              temp.setAux(new User() );
              impl.cleanPassword(temp);
+             
              listUsers();
+             FacesContext context = FacesContext.getCurrentInstance();
+             context.addMessage(null, new FacesMessage("Acción completada",  "Usuario Registrado con éxito  " + message) );
            }else{
-           
+            mensaje= "Error creando el usuario";
            }
         
-        }
+        }else{
+            mensaje= "Contraseña no coincide";
+            }
+        
+             FacesContext context = FacesContext.getCurrentInstance();
+             context.addMessage(null, new FacesMessage("Acción Icompleta",  mensaje  + message) );
     }
     
     public void updateUser(){

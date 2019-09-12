@@ -38,9 +38,9 @@
                                         
                             <p:inputText placeholder="Identificacion" value="#{sesionBean.tempUser.aux.identificationUser}"/>
                                     
-                            <p:inputText placeholder="Contraseña" value="#{sesionBean.tempUser.password}"/>
+                            <p:inputText type="password" placeholder="Contraseña" value="#{sesionBean.tempUser.password}"/>
                                     
-                            <p:inputText placeholder="Confirmar Contraseña" value="#{sesionBean.tempUser.validatePassword}"/>
+                            <p:inputText type="password" placeholder="Confirmar Contraseña" value="#{sesionBean.tempUser.validatePassword}"/>
                                     
                             <h:panelGrid  cellpadding="5" columns="2"> 
                                 <p:commandButton action="#{sesionBean.addUser()}" value="Registrar" update="growl"/>

@@ -14,52 +14,104 @@
     </h:head>
     <h:body>
         <h:form id="form1">
-        <p:dataTable value="#{movieBean.temp.listMovie}" var="movie" id="tabMovie"  selectionMode="single"
-                     rowKey="#{movie.idMovie}" selection="#{movieBean.temp.select}" rendered="#{not empty movieBean.temp.listMovie}" >
-                 <f:facet name="header">
+             
+         <!-- Tabla que muestra las peliculas -->
+        <p:dataTable value="#{movieBean.temp.listMovie}"  var="movie" id="tabMovie"  selectionMode="single"
+                     rowKey="#{movie.idMovie}" selection="#{movieBean.temp.select}" rendered="#{movieBean.temp.configSelection}" >
+                    <f:facet name="header">
+                     
+                         
+                     
                      Tabla de Peliculas
-                     <div>
-                         <p:commandButton value="Registrar una Pelicula" onclick="PF('dlgAgregar').show();"/>
+                     <div align="left" >
+                         
+                         <p:commandButton style="float: right"  value="Agregar" onclick="PF('dlgAgregar').show();"/>
+                              
+                         <p:commandButton    value="Lo mas visto" update="tabMovie" action="#{movieBean.moreView()}" />
+                         <p:commandButton    value="Ranking" update="tabMovie" action="#{movieBean.moreRiting()}" />
+                         <p:commandButton    value="Peliculas" update="tabMovie" action="#{movieBean.loadMovie()}" />
+                         <p:commandButton    value="Series" update="tabMovie" action="#{movieBean.loadSerie()}" />
+                         <p:commandButton    value="Selección  Multiple"  action="#{movieBean.changeSelection()}" update=":form1"/>
                      </div>
                      
+                     
+                     
                     </f:facet>
-                     <p:ajax event="rowSelect" update=":form1:dlg2" listener="#{movieBean.loadImage()}"  oncomplete="PF('dlgMostrar').show()" />
-                     <p:ajax event="contextMenu" listener="#{movieBean.loadImage()}"  update=":form1:dlg3 :form1:dlg4 " />
-               
+                     <p:ajax event="rowSelect" update=":form1:dlg2 :form1:tabMovie" listener="#{movieBean.loadImage(1)}"   oncomplete="PF('dlgMostrar').show()"  />
+                    
+                     <p:ajax event="contextMenu"   update=":form1:dlg3 :form1:dlg4 " />
+                   
+                     
                     <p:column headerText="Titulo">
                         <h:outputText value="#{movie.nameMovie}"/>
                     </p:column>
-               
-                    <p:column headerText="Director ">
-                        <h:outputText value="#{movie.managerMovie}"/>
-                    </p:column>
-                    
-                    <p:column headerText="Reparto">
-                        <h:outputText value="#{movie.starringMovie}"/>
-                    </p:column>
-            
-                    <p:column headerText="Descripción">
+                     <p:column headerText="Descripción">
                         <h:outputText value="#{movie.descriptionMovie}"/>
                     </p:column>
                      
+                     <p:column headerText="Numero de vistas">
+                         <h:outputText value="#{movie.view}"/>
+                     </p:column>
+                      <p:column headerText="Calificación">
+                          <p:rating value="#{movie.rating}" readonly="true"/>
+                     </p:column>
                     
         </p:dataTable>
-             
+           <!-- Tabla que muestra las peliculas --> 
+           
+           <p:dataTable value="#{movieBean.temp.listMovie}" id="tabMovie2" var="movie"   
+                        rowKey="#{movie.idMovie}" selection="#{movieBean.temp.movieSelect}"  rendered="#{!movieBean.temp.configSelection}" >
+                    <f:facet name="header">
+                     
+                         
+                     
+                     Tabla de Peliculas
+                     <div align="left" >
+                         
+                        <p:commandButton    value="Selección  Simple" update=":form1" action="#{movieBean.changeSelection()}" />
+                              
+                         
+                     </div>
+                     
+                     
+                     
+                    </f:facet>
+                    
+                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                     
+                    <p:column headerText="Titulo">
+                        <h:outputText value="#{movie.nameMovie}"/>
+                    </p:column>
+                     <p:column headerText="Descripción">
+                        <h:outputText value="#{movie.descriptionMovie}"/>
+                    </p:column>
+                     
+                     <p:column headerText="Numero de vistas">
+                         <h:outputText value="#{movie.view}"/>
+                     </p:column>
+                      <p:column headerText="Calificación">
+                          <p:rating value="#{movie.rating}" readonly="true"/>
+                     </p:column>
+                    
+                <f:facet name="footer">
+                    <div align="left" >
+                        <p:commandButton  value="Eliminar Peliculas" update=":form1:tabMovie2" ajax="false" action="#{movieBean.multipleDelete()}"/>
+                    </div>
+                </f:facet>
+                    
+        </p:dataTable>
+           
+            <!-- opciones de la tabla -->
             <p:contextMenu for="tabMovie">
                 <p:menuitem value="Actualizar" update=":form1:dlg2" onclick="PF('dlgActualizar').show()"  action="#{ movieBean.copyMovie()}"/>
                 <p:menuitem value="Eliminar" onclick="PF('dlgEliminar').show()"  />
             </p:contextMenu>
-            
+            <!-- opciones de la tabla -->
              <p:layoutUnit id="layRegistrar" position="center">
                 <p:growl id="growl" showDetail="true" sticky="true" />
-                
-                
-                
-                
+                <!-- Ventana emergente para agregar una nueva pelicula -->
                 <p:dialog id="dlg1" widgetVar="dlgAgregar" header="Agregar Pelicula" >
-                  
                     <p:panelGrid  id="panAgregar"   >
-                                
                         <p:row>
                             <p:column>
                                 <p:inputText placeholder="Titulo"  value="#{movieBean.temp.aux.nameMovie}"  />
@@ -69,44 +121,37 @@
                                     <p:fileUpload fileUploadListener="#{movieBean.handleFileUpload}"  mode="advanced" 
                                               auto="true" label="Cargar Imagen" update="img  :form1:img1" 
                                               allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                                 
                                 </p:column>
                                 <p:column rowspan="2">
                                         <p:graphicImage id="img"  value="#{movieBean.temp.pahtImagen}" width="150" height="120"/>
                                     </p:column>
-                                
                             </h:panelGroup>
-                                
-                            
-                            
                         </p:row> 
                         <p:row>
                             <p:column>
                                 <p:inputTextarea placeholder="Descripción" rows="4" cols="23" value="#{movieBean.temp.aux.descriptionMovie}" />
-
-                            </p:column>
-                          
+                             </p:column>
                         </p:row>
                         <p:row>    
                             <p:column>
                             <p:inputTextarea placeholder="Reparto" rows="2" cols="23" value="#{movieBean.temp.aux.starringMovie}" />
                             </p:column>
-                          
                         </p:row>
-                        
                         <p:row>
                             <p:column>
                                 <p:inputText placeholder="Director" value="#{movieBean.temp.aux.managerMovie}" />
                             </p:column>
-                            
-                       
                         </p:row>
-                       
-                            
-                      
-                               
+                        <p:row>
+                            <p:column>
+                                <p:selectOneMenu  value="#{movieBean.temp.aux.type}" style="width:125px">
+                                    <f:selectItem itemLabel="Pelicula" itemValue="pelicula" />
+                                    <f:selectItem itemLabel="Serie" itemValue="serie" />
+                                    
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
                    </p:panelGrid>
-                            
                    <h:panelGrid cellpadding="5" columns="2">
                        <p:commandButton value="Agregar" resetValues="true" ajax="false" action="#{movieBean.addMovie()}" onclick="PF('dllgAgregar').hide()" update=":form1" />
                                     
@@ -114,25 +159,30 @@
                                     
                    </h:panelGrid>
                 </p:dialog>
+              <!-- Ventana emergente para agregar una nueva pelicula -->  
                 
-                
+              
+              <!-- Ventana emergente para  ver una pelicula -->
                 <p:dialog id="dlg2" widgetVar="dlgMostrar" header="Información de la Pelicula" >
                     <h:outputText value="Titulo #{movieBean.temp.select.nameMovie}" />
                             <h:panelGrid cellpadding="6" columnClasses="label,value" columns="2">
-                            
-                             
                               <h:outputText value="Director" />
                               <h:outputText value="#{movieBean.temp.select.managerMovie}"/>
                               <h:outputText value="Reparto" />
                               <h:outputText value="#{movieBean.temp.select.starringMovie}"/>
                               <h:outputText value="Descipción"/>
                               <h:outputText value="#{movieBean.temp.select.descriptionMovie}"/>
-                              
+                              <h:outputText value="Calificar Pelicula"/>
+                              <p:rating value="#{movieBean.temp.raiting}">
+                                  <p:ajax event="rate" listener="#{movieBean.rating}" update=":form1:tabMovie" oncomplete="PF('dlgMostrar').hide()" resetValues="true"/>
+                              </p:rating>
                               <p:graphicImage id="img1"  value="#{movieBean.temp.pahtImagen}" width="150" height="120"/>
-                               
+                             
                             </h:panelGrid>
-                        </p:dialog>
+                </p:dialog>
+                <!-- Ventana emergente para  ver una pelicula -->
                 
+                <!-- Ventana emergente para editar una pelicula -->
                 <p:dialog id="dlg3" widgetVar="dlgActualizar" header="Actualizar Pelicula" >
                     <p:panelGrid  id="panActualizar"  rendered="#{not empty movieBean.temp.select}" columnClasses="label,value" >
                         <p:row>
@@ -147,15 +197,12 @@
                                 </p:column> 
                                 <p:column rowspan="4">
                                      <h:panelGroup>
-                                         
                                             <p:fileUpload fileUploadListener="#{movieBean.handleFileUpload}"  mode="advanced" 
                                                       auto="true" label="Cambiar Imagen" update="img2  :form1:img1" 
                                                       allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                                         
-                                                <p:graphicImage id="img2"  value="#{movieBean.temp.pahtImagen}" width="150" height="120"/>
-                                          
-
-                                        </h:panelGroup>
+                                            <p:graphicImage id="img2"  value="#{movieBean.temp.pahtImagen}" width="150" height="120"/>
+                                          </h:panelGroup>
                                 </p:column>
                        </p:row>
                        <p:row>
@@ -182,38 +229,39 @@
                                 <p:inputText placeholder="Director" value="#{movieBean.temp.select.managerMovie}" />
                             </p:column>
                        </p:row>
-                        
-                            
-                                
-                     </p:panelGrid>
+                        <p:row>
+                            <p:column>
+                                <p:selectOneMenu value="#{movieBean.temp.select.type}" style="width:125px">
+                                    <f:selectItem itemLabel="Pelicula" itemValue="pelicula" />
+                                    <f:selectItem itemLabel="Serie" itemValue="serie" />
+                                    
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
                             
                      <h:panelGrid cellpadding="5" columns="2">
                                 <p:commandButton value="Modificar" ajax="false" resetValues="true" action="#{movieBean.updateMovie()}" onclick="PF('dlgEliminar').hide()" update=":form1" />
-                                    
                                 <p:commandButton value="Cancelar"  onclick="PF('dllgActualizar').hide()" />
-                                    
-                                </h:panelGrid>
+                    </h:panelGrid>
                             
-                        </p:dialog>
-                
+                 </p:dialog>
+                                <!-- Ventana emergente para editar una pelicula -->
+
+                                <!-- Ventana emergente para elminar una pelicula -->
                 <p:dialog id="dlg4" widgetVar="dlgEliminar" header="Eliminar Pelicula" >
                     <h:outputText value="¿Esta seguro de eliminar la Pelicula #{movieBean.temp.select.nameMovie}?" />
                         <h:panelGrid id="panCambiarContrasena"  cellpadding="6" columns="2" columnClasses="label,value">
-                            
-                             <h:outputText value="Descripción" />
+                           <h:outputText value="Descripción" />
                              <h:outputText value="#{movieBean.temp.select.descriptionMovie}"/>
-                              
-                        
-                    </h:panelGrid>
+                       </h:panelGrid>
                     
                      <h:panelGrid cellpadding="5" columns="2">
                          <p:commandButton value="Eliminar" resetValues="true" action="#{movieBean.deleteMovie()}" onclick="PF('dlgEliminar').hide()" update=":form1 " />
-                                 
-                                 <p:commandButton value="Cancelar" onclick="PF('dlgEliminar').hide()"/>
-                                 
-                      </h:panelGrid>
+                         <p:commandButton value="Cancelar" onclick="PF('dlgEliminar').hide()"/>
+                     </h:panelGrid>
                 </p:dialog>
-                
+                <!-- Ventana emergente para elminar una pelicula -->
                 
             </p:layoutUnit>
         </h:form>

@@ -56,7 +56,9 @@ public class MovieImpl implements MovieImplInterface {
 
     @Override
     public boolean updateMovie(MovieTemp temp) {
-        temp.getSelect().setImage(temp.getFile().getContents());
+        if(temp.getFile()!=null){
+            temp.getSelect().setImage(temp.getFile().getContents());
+        }
         return dao.updateMovie(temp.getSelect(), temp.getIdMovie());
     }
 
@@ -102,6 +104,60 @@ public class MovieImpl implements MovieImplInterface {
         }
         
         return route;
+    }
+
+    @Override
+    public void upView(MovieTemp temp) {
+        temp.getSelect().setView(temp.getSelect().getView()+1);
+        dao.upView(temp.getSelect().getIdMovie(),temp.getSelect().getView());
+    }
+
+    @Override
+    public void updateRating(MovieTemp temp) {
+        Integer rating = (temp.getSelect().getView()-1)*temp.getSelect().getRating();
+        rating = (rating + temp.getRaiting())/temp.getSelect().getView();
+        temp.getSelect().setRating(rating);
+        dao.updateRqating(temp.getSelect().getIdMovie(), rating);
+        temp.setRaiting(0);
+    }
+
+    @Override
+    public void moreView(MovieTemp temp) {
+        temp.setListMovie(dao.moreView());
+    }
+
+    @Override
+    public void moreRaiting(MovieTemp temp) {
+        temp.setListMovie(dao.moreRating());
+    }
+
+    @Override
+    public boolean multipleDelete(MovieTemp temp) {
+        boolean b= true;
+        if(temp.getMovieSelect().size()>0){
+        for (Movie movie: temp.getMovieSelect()) {
+            
+            if(!dao.delteMovie(movie.getIdMovie())){
+                b= false;
+            }else{
+                temp.getListMovie().remove(movie);
+            }
+            
+        }
+        }
+        
+        
+        return b;
+    }
+
+    @Override
+    public void loadMovie(MovieTemp temp) {
+         temp.setListMovie(dao.loadMovie());
+    }
+
+    @Override
+    public void loadSerie(MovieTemp temp) {
+        temp.setListMovie(dao.loadSerie());
     }
     
 }

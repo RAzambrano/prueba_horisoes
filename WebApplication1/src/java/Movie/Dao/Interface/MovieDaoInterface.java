@@ -17,4 +17,11 @@ public interface MovieDaoInterface {
     public ArrayList<Movie> listMovie();
     public boolean updateMovie(Movie movie, Integer idMovie);
     public boolean delteMovie(Integer idMovie);
+    public void upView(Integer idMovie, Integer view);
+    public void updateRqating(Integer idMovie, Integer rating);
+    public ArrayList<Movie> moreView();
+    public ArrayList<Movie> moreRating();
+    public ArrayList<Movie> loadMovie();
+    public ArrayList<Movie> loadSerie();
+    
 }
