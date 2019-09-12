@@ -35,13 +35,14 @@ public class MovieDaoImpl implements MovieDaoInterface {
         Conection conection = new Conection();
         conection.conecting();
         Connection conecting = conection.getConector();
-        String query =  "INSERT INTO horisoes_peliculas.movie ( name_movie, description_movie, starring_movie, manager_movie) VALUES ( ?, ?, ?, ?);";
+        String query =  "INSERT INTO horisoes_peliculas.movie ( name_movie, description_movie, starring_movie, manager_movie, photo_movie) VALUES ( ?, ?, ?, ?, ?);";
         try {
             statement=conecting.prepareStatement(query);
             statement.setString(1, movie.getNameMovie());
             statement.setString(2, movie.getDescriptionMovie());
             statement.setString(3, movie.getStarringMovie());
             statement.setString(4, movie.getManagerMovie());
+            statement.setBytes(5, movie.getImage());
             statement.execute();
             b=true;
         } catch (SQLException ex) {
@@ -72,6 +73,7 @@ public class MovieDaoImpl implements MovieDaoInterface {
                  movie.setStarringMovie(result.getString("starring_movie"));
                  movie.setManagerMovie(result.getString("manager_movie"));
                  movie.setIdMovie(result.getInt("id_movie"));
+                 movie.setImage(result.getBytes("photo_movie"));
                  
                  movies.add(movie);
                 
@@ -96,7 +98,7 @@ public class MovieDaoImpl implements MovieDaoInterface {
         Connection conecting = conection.getConector();
          
              String query ="UPDATE horisoes_peliculas.movie\n" +
-"	SET name_movie=?, description_movie=?, starring_movie=?, manager_movie=? \n" +
+"	SET name_movie=?, description_movie=?, starring_movie=?, manager_movie=?, photo_movie=? \n" +
 "	WHERE id_movie = ?";
         try {
             prepareSentence= conecting.prepareStatement(query);
@@ -104,7 +106,8 @@ public class MovieDaoImpl implements MovieDaoInterface {
              prepareSentence.setString(2, movie.getDescriptionMovie());
              prepareSentence.setString(3, movie.getStarringMovie());
              prepareSentence.setString(4, movie.getManagerMovie());
-             prepareSentence.setInt(5,idMovie);
+             prepareSentence.setBytes(5, movie.getImage());
+             prepareSentence.setInt(6,idMovie);
              prepareSentence.execute();
              b=true;
         } catch (SQLException ex) {

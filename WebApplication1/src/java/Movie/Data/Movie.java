@@ -15,6 +15,7 @@ public class Movie {
    private String descriptionMovie;
    private String managerMovie;
    private String starringMovie;
+   private byte[] image;
 
     public Integer getIdMovie() {
         return idMovie;
@@ -57,6 +58,14 @@ public class Movie {
     }
 
     public Movie() {
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
    
    

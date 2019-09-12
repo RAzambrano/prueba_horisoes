@@ -18,4 +18,5 @@ public interface MovieImplInterface {
     public boolean updateMovie(MovieTemp temp);
     public boolean deletMovie(MovieTemp temp);
     public void copyMovie(MovieTemp temp);
+    public String saveTempImage(String name, byte[] array);
 }

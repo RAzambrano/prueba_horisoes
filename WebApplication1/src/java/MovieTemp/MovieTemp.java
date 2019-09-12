@@ -7,6 +7,9 @@ package MovieTemp;
 
 import Movie.Data.Movie;
 import java.util.ArrayList;
+import org.primefaces.model.DefaultUploadedFile;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -18,10 +21,14 @@ public class MovieTemp {
     private Movie aux;
     private Movie select;
     private Integer idMovie; 
+    private UploadedFile file;
+    StreamedContent imagen ;
+    private String pahtImagen;
 
     public MovieTemp() {
         listMovie= new ArrayList<Movie>();
         aux = new Movie();
+        imagen = null;
     }
 
     public ArrayList<Movie> getListMovie() {
@@ -54,6 +61,30 @@ public class MovieTemp {
 
     public void setIdMovie(Integer idMovie) {
         this.idMovie = idMovie;
+    }
+    
+    public UploadedFile getFile() {
+        return file;
+    }
+ 
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public StreamedContent getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(StreamedContent imagen) {
+        this.imagen = imagen;
+    }
+
+    public void setPahtImagen(String pahtImagen) {
+        this.pahtImagen = pahtImagen;
+    }
+
+    public String getPahtImagen() {
+        return pahtImagen;
     }
     
     
